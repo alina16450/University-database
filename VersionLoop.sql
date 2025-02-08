@@ -1,12 +1,13 @@
 use University;
 
+--table that keeps track of the version we are on, and prints the version number after each change
 CREATE TABLE CurrentVersion(
 currentVersion int,
 )
-
+--set the current version to 0
 insert into CurrentVersion(currentVersion) VALUES (0);
 
---Create a table for exams.
+--Create a table for exams. version 1
 CREATE PROCEDURE do_proc_1 
 AS
 	CREATE TABLE ExamSession(Exam_Id int PRIMARY KEY, exam_date date, Student_Id int)
@@ -20,7 +21,7 @@ AS
 	PRINT 'Exam table deleted.'
 GO
 
---Add a table for exam grades in students.
+--Add a collumn for exam grades in students. version 2
 CREATE PROCEDURE do_proc_2
 AS
 	ALTER TABLE Students
@@ -36,7 +37,7 @@ AS
 	PRINT'Exam grade table deleted.'
 GO
 
---Set the default passing status to no, to update as needed.
+--Set the default passing status to no, to update as needed. version 3
 CREATE PROCEDURE do_proc_3
 AS
 	ALTER TABLE Students
@@ -52,7 +53,7 @@ AS
 	PRINT 'Default specification removed.'
 GO
 
---Link the exams to students by adding a foreign key with the student id.
+--Link the exams to students by adding a foreign key with the student id. version 4
 CREATE PROCEDURE do_proc_4
 AS
 	ALTER TABLE ExamSession
