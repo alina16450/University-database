@@ -1,4 +1,4 @@
-use University1;
+use University;
 
 CREATE TABLE CurrentVersion(
 currentVersion int,
