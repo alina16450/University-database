@@ -1,2 +1,5 @@
 # University-database
-database that shows use of many important functions and tools of SQL
+A database consisting of Students, Professors, Departments, Courses etc which demonstrate several types of table relations such as 1-many between professors and department or many-many between students and courses.
+The main database handles setting up the tables, as well as some basic procedures such as creating a new group of students, demonstrating the use of a view to create a makeshift student schedule, implementing a trigger that automates listing a new course, and also creating two new nonclustered indexes. 
+The Select folder demonstrates the use of diverse select statements, each demonstrating the use of a different tool such as 'inner/left/right join', 'exists', 'distinct', 'count' which is also used in combination with 'avg', or 'min', and other tools that may be useful when handling an SQL database. 
+The version loop has several changes to our database such as creating a new table, adding a new collumn in a table, and other such things and then implements a stored procedure that allows the user to revert those changes with just entering the version they would like to be using. 
