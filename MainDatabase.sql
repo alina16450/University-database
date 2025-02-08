@@ -59,46 +59,7 @@ ALTER TABLE Students ALTER COLUMN GPA DECIMAL(2, 1);
 INSERT INTO Groups (Group_Id, Nr_Students) VALUES (101, 10), (205, 10), (811, 10), (821, 10);
 INSERT INTO Groups VALUES (500, 5);
 
-INSERT INTO Department (Department_Id, Department_Name) VALUES 
-(301, 'Mathematics-Informatics'),(302, 'Philosophy'), (303, 'History'), (304, 'English'), (305, 'Chemistry');
-
-INSERT INTO Students (Student_Id, First_Name, Last_Name, GPA, Specialty, Group_id, Department_Id) VALUES
-(1, 'Claude', 'Baker', 3.2, 'Mathematics', 811, 301),
-(2, 'Emilia', 'Gomez', 3.7, 'Mathematics', 811, 301),
-(3, 'Lawrence', 'Middleton', 4.0, 'Informatics', 821, 301),
-(4, 'Sophia', 'Hensley', 3.0, 'Mathematics', 811, 301),
-(5, 'Odessa', 'Gardner', 2.9, 'Informatics', 821, 301),
-(6, 'Lonny', 'Cruz', 0.9, 'History', 101, 303),
-(7, 'Marva', 'Lewis', 1.0, 'History', 101, 303),
-(8, 'Jamaal', 'Wheeler', 3.2, 'History', 101, 303),
-(9, 'Shawn', 'Kerr', 0.8, 'Informatics', 821, 301),
-(10, 'Olen', 'Bender', 1.0, 'Informatics', 821, 301),
-(11, 'Vicky', 'Baker', 3.1, 'History', 101, 303),
-(12, 'Nick', 'Bender', 3.4, 'Informatics', 821, 301);
-
-INSERT INTO Professors (Professor_Id, First_Name, Last_Name, Specialty, Department_Id) VALUES
-(101, 'Terrell', 'Joyce', 'Informatics', 301),
-(102, 'Adam', 'Hurley', 'History', 303),
-(103, 'Alexandra', 'Mills', 'English', 304),
-(104, 'Michael', 'Wheeler', 'Mathematics', 301);
-
-INSERT INTO Courses (Course_Id, NrEnrolled, CourseName, NrCredits, Professor_Id) VALUES
-(601, 15, 'Data Structures', 15, 101),
-(602, 15, 'World History', 20, 102),
-(603, 15, 'Literature', 30, 103),
-(604, 15, 'Complex Analysis', 25, 104),
-(605, 15, 'Intro to Java', 20, 101),
-(606, 15, 'Algebra', 10, 104);
-
-INSERT INTO Student_Classes (Student_Id, Course_Id) VALUES
-(1,604), (1,606), (2, 604), (2,606), (3, 601), (3, 605), (4, 604), (4, 606), (5, 601), (5, 605), (6, 602),
-(7,602), (8,602), (9, 601), (9, 605), (10, 601), (10, 605), (11, 602), (12, 601), (12, 605);
-
-
----a---
-
-
---First validator checks that the number of student is ok
+--validator checks that the number of student is within the defined parameters 
 CREATE FUNCTION checkNumStudents(@num int)
 RETURNS INT AS
 BEGIN
@@ -110,7 +71,7 @@ BEGIN
 	RETURN @n
 END
 
---Second validator checks that the year of study is within range
+--validator checks that the year of study is within range
 CREATE FUNCTION checkStudyYear(@num int)
 RETURNS INT AS
 BEGIN
@@ -151,10 +112,6 @@ exec addGroupandStudent 24, 10, 3, 26, 'Gabriel', 'Herbei', 3, 'Mathematics', 30
 SELECT * FROM Groups
 SELECT * FROM Students
 
-
----b---
-
-
 --Shows all of the students group number, the course ID and the name of the courses they are enrolled in. If they are enrolled in 
 --multiple classes they show up multiple times as to provide a useful student schedule.
 CREATE VIEW studentsView
@@ -164,10 +121,6 @@ AS
 	INNER JOIN Courses r ON c.Course_Id = r.Course_Id WHERE s.GPA > 2
 
 SELECT * FROM studentsView
-
-
----c---
-
 
 --The table where we will keep track of all the new courses added.
 CREATE TABLE Logs(
@@ -202,10 +155,6 @@ SELECT * FROM Logs
 SELECT * FROM newCourses
 
 insert into Courses values (504,0 ,'Algorithms', 30, 101, null) 
-
-
----d---
-
 
 --Creates two triggers within the Students table
 IF EXISTS (SELECT name FROM sys.indexes WHERE name = N'N_idx_GPA')
